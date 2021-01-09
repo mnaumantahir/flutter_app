@@ -33,6 +33,7 @@ dependencies:
   firebase_auth:
   firebase_dynamic_links:
   cloud_firestore:
+  auto_size_text:
 
 dev_dependencies:
   flutter_test:

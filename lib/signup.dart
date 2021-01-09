@@ -34,12 +34,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
           .createUserWithEmailAndPassword(
           email: emailInputController.text,
           password: pwdInputController.text)
-          .then((currentUser) => databaseReference.child("users")
+          .then((currentUser) => databaseReference.child("users/${currentUser.user.uid}/")
           .set({
         "fname": nameInputController.text,
         "lname": lastnameInputController.text,
         "number": numberInputController.text,
         "email": emailInputController.text,
+        "notes": [{"title":"temp","description":"temp desc"}],
       })
           .then((result) => {
         Navigator.pushReplacement(

@@ -4,12 +4,11 @@ import 'package:notes_app/widgets/custom_shape.dart';
 import 'package:notes_app/widgets/responsive_ui.dart';
 import 'package:notes_app/widgets/textformfield.dart';
 import 'package:notes_app/signup.dart';
-// import 'package:firebase_database/firebase_database.dart';
-// import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'home.dart';
 import 'dart:async';
 import 'dart:ui';
+import "Notes.dart";
 class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -50,7 +49,7 @@ class _SignInScreenState extends State<SignInScreen> {
             .of(context)
             .showSnackBar(SnackBar(content: Text('Login Successful')));
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => QuizApp()));
+            context, MaterialPageRoute(builder: (context) => NotesPage(auth: _auth,user: user,)));
       });
     } else {
       setState(() {
