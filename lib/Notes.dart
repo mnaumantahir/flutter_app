@@ -57,7 +57,7 @@ class _NotesPageState extends State<NotesPage> {
       body: buildNotes(),
       floatingActionButton: FloatingActionButton(
         mini: false,
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.redAccent,
         onPressed: () {
           _settingModalBottomSheet(context);
         },
@@ -145,7 +145,7 @@ class _NotesPageState extends State<NotesPage> {
                     background: ClipRRect(
                       borderRadius: BorderRadius.circular(5.5),
                       child: Container(
-                        color: Colors.green,
+                        color: Colors.orange,
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
@@ -237,7 +237,7 @@ class _NotesPageState extends State<NotesPage> {
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 20.00,
-                            color: Colors.black,
+                            color: Colors.teal,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -254,7 +254,7 @@ class _NotesPageState extends State<NotesPage> {
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: 15.00,
-                              color: Colors.black,
+                              color: Colors.red,
                             ),
                           ),
                         ),
