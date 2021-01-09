@@ -25,7 +25,7 @@ class _NotesPageState extends State<NotesPage> {
     var snapshot = await databaseReference.child("users/${widget.user.uid}/notes/");
     snapshot.once().then((DataSnapshot snapshot){
       // print(snapshot.value);
-      total_notes  = snapshot.value.length+1;
+      total_notes  = snapshot.value.length;
       if(total_notes==0){
         total_notes=1;
       }
@@ -77,8 +77,6 @@ class _NotesPageState extends State<NotesPage> {
       child: new StreamBuilder(
         stream: databaseReference.child("users/${widget.user.uid}/notes/").onValue,
         builder: (context, snap) {
-          print("IDDDDD");
-          print(widget.user.uid);
           if (snap.hasData &&
               !snap.hasError &&
               snap.data.snapshot.value != null) {
@@ -101,8 +99,10 @@ class _NotesPageState extends State<NotesPage> {
                     key: UniqueKey(),
                     direction: DismissDirection.horizontal,
                     onDismissed: (direction) {
+                    if (direction == DismissDirection.endToStart) {
                       setState(() {
-                        databaseReference.child("users/${widget.user.uid}/notes/${key}").remove();
+                        databaseReference.child(
+                            "users/${widget.user.uid}/notes/${key}").remove();
                         // deletedNoteHeading = noteHeading[index];
                         // deletedNoteDescription = noteDescription[index];
                         // noteHeading.removeAt(index);
@@ -142,6 +142,13 @@ class _NotesPageState extends State<NotesPage> {
                         //   ),
                         // );
                       });
+                    }
+                    else{
+                      noteHeadingController.text=data[key]['title'];
+                      noteDescriptionController.text=data[key]['description'];
+
+                      _settingModalBottomSheet(context,is_update: true,key_: key);
+                    }
                     },
                     background: ClipRRect(
                       borderRadius: BorderRadius.circular(5.5),
@@ -159,7 +166,7 @@ class _NotesPageState extends State<NotesPage> {
                                   color: Colors.white,
                                 ),
                                 Text(
-                                  "Delete",
+                                  "Update",
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ],
@@ -271,7 +278,7 @@ class _NotesPageState extends State<NotesPage> {
     );
   }
 
-  void _settingModalBottomSheet(context) {
+  void _settingModalBottomSheet(context,{is_update:false,key_:""}) {
     // print
     showModalBottomSheet(
       context: context,
@@ -312,21 +319,34 @@ class _NotesPageState extends State<NotesPage> {
                           GestureDetector(
                             onTap: () {
                               if (_formKey.currentState.validate()) {
-                                setState(() {
-                                  getnotes_length();
-                                  print(total_notes);
-                                  databaseReference.child("users/${widget.user.uid}/notes/${"id_"+total_notes.toString()}")
+                                if(is_update==false) {
+                                  setState(() {
+                                    getnotes_length();
+                                    databaseReference.child("users/${widget.user
+                                        .uid}/notes/${"id_" +
+                                        total_notes.toString()}")
+                                        .update({
+                                      "title": noteHeadingController.text,
+                                      "description": noteDescriptionController
+                                          .text
+                                    });
+                                    noteHeadingController.clear();
+                                    noteDescriptionController.clear();
+                                  });
+                                }
+                                else{
+                                  databaseReference.child("users/${widget.user
+                                      .uid}/notes/${key_}")
                                       .update({
                                     "title": noteHeadingController.text,
-                                    "description":noteDescriptionController.text
+                                    "description": noteDescriptionController
+                                        .text
                                   });
                                   noteHeadingController.clear();
                                   noteDescriptionController.clear();
-                                });
+                                }
                                 Navigator.pop(context);
                               }
-                              print("Notes.dart LineNo:239");
-                              print(noteHeadingController.text);
                             },
                             child: Container(
                               child: Row(
@@ -441,68 +461,6 @@ Widget notesHeader() {
   );
 }
 
-
-//
-//
-// ListView.builder(
-// // padding: EdgeInsets.symmetric(horizontal: 50),
-// itemCount: data.length,
-// itemBuilder: (context, index) {
-// return Column(
-//
-// children:[
-// index>0?SizedBox(height: 20,):SizedBox(height: 0,),
-// Text("Semester ${index+1}",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold), ),
-// SingleChildScrollView(
-//
-// child: DataTable(
-// horizontalMargin: 5,
-// // columnSpacing: 500,
-// showBottomBorder: true,
-// dividerThickness: 1,
-// headingRowColor:
-// MaterialStateColor.resolveWith((states) => Colors.blue),
-// showCheckboxColumn: false,
-// columns: [
-// // DataColumn(label: Text(
-// //     'Code',
-// //     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)
-// // )),
-// DataColumn(label: Text(
-// 'Name',
-// style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)
-// )),
-// DataColumn(label: Text(
-// 'Credit',
-// style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-// textAlign: TextAlign.center,
-// )),
-// DataColumn(
-//
-// label: Text(
-// 'Marks',
-// style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-// textAlign: TextAlign.center,
-// )),
-// DataColumn(
-// label: Text(
-// 'GP',
-// style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-// textAlign: TextAlign.center,
-// )),
-// ],
-// rows: List.generate(
-// data['Semester ${index+1}'].length-1, (index_) => _getDataRow(data['Semester ${index+1}'][index_])),
-// ),
-// scrollDirection: my_axis.Axis.horizontal,
-//
-// ),
-//
-// Text("CGPA: ${data['Semester ${index+1}'].last['CGPA']}",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)
-// ]
-// );
-// },
-// ),
 
 
 
