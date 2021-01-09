@@ -58,7 +58,7 @@ class _NotesPageState extends State<NotesPage> {
       body: buildNotes(),
       floatingActionButton: FloatingActionButton(
         mini: false,
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.lightGreen,
         onPressed: () {
           _settingModalBottomSheet(context);
         },
@@ -153,7 +153,7 @@ class _NotesPageState extends State<NotesPage> {
                     background: ClipRRect(
                       borderRadius: BorderRadius.circular(5.5),
                       child: Container(
-                        color: Colors.green,
+                        color: Colors.deepOrangeAccent,
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
@@ -178,7 +178,7 @@ class _NotesPageState extends State<NotesPage> {
                     secondaryBackground: ClipRRect(
                       borderRadius: BorderRadius.circular(5.5),
                       child: Container(
-                        color: Colors.red,
+                        color: Colors.redAccent,
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: Padding(
@@ -245,7 +245,7 @@ class _NotesPageState extends State<NotesPage> {
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 20.00,
-                            color: Colors.black,
+                            color: Colors.red,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -262,7 +262,7 @@ class _NotesPageState extends State<NotesPage> {
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: 15.00,
-                              color: Colors.black,
+                              color: Colors.blue,
                             ),
                           ),
                         ),
@@ -355,7 +355,7 @@ class _NotesPageState extends State<NotesPage> {
                                     "Save",
                                     style: TextStyle(
                                       fontSize: 20.00,
-                                      color: Colors.blue,
+                                      color: Colors.deepPurple,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -366,17 +366,17 @@ class _NotesPageState extends State<NotesPage> {
                         ],
                       ),
                       Divider(
-                        color: Colors.blueAccent,
+                        color: Colors.lime,
                         thickness: 2.5,
                       ),
                       TextFormField(
                         maxLength: notesHeaderMaxLenth,
                         controller: noteHeadingController,
                         decoration: InputDecoration(
-                          hintText: "Note Heading",
+                          hintText: "Notes Title",
                           hintStyle: TextStyle(
                             fontSize: 15.00,
-                            color: Colors.grey,
+                            color: Colors.red,
                             fontWeight: FontWeight.w500,
                           ),
                           prefixIcon: Icon(Icons.text_fields),
@@ -408,7 +408,7 @@ class _NotesPageState extends State<NotesPage> {
                               hintText: 'Description',
                               hintStyle: TextStyle(
                                 fontSize: 15.00,
-                                color: Colors.grey,
+                                color: Colors.blue,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -445,15 +445,15 @@ Widget notesHeader() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "My Notes",
+          "Adding Notes",
           style: TextStyle(
-            color: Colors.blueAccent,
+            color: Colors.limeAccent,
             fontSize: 25.00,
             fontWeight: FontWeight.w500,
           ),
         ),
         Divider(
-          color: Colors.blueAccent,
+          color: Colors.lime,
           thickness: 2.5,
         ),
       ],
