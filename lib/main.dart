@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 // import 'package:quizzler/retry.dart';
 // import 'quiz_brain.dart';
 import 'dart:ui';
+import 'signin.dart';
 
-
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(SplashScreen());
 }
 
@@ -35,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Timer(
         Duration(seconds: 6),
             () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => QuizApp())));
+            context, MaterialPageRoute(builder: (context) => SignInPage())));
   } //<- Creates an object that fetches an image.
   // var image = new Image(
   //     image: AssetImage(
@@ -60,49 +63,4 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class QuizApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.grey.shade900,
-        body: SafeArea(
-            child: QuizPage()
-          // Padding(
-          //   // padding: EdgeInsets.symmetric(horizontal: 10.0),
-          //   child: QuizPage(),
-          // ),
-        ),
-      ),
-    );
-  }
-}
-
-class QuizPage extends StatefulWidget {
-  @override
-  _QuizPageState createState() => _QuizPageState();
-}
-
-class _QuizPageState extends State<QuizPage>  {
-
-  // DateTime alert;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   alert = DateTime.now().add(Duration(seconds: 10));
-  // }
-
-  @override
-  Widget build(BuildContext context) {
-    // quizBrain.shuffle();
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Text("hello")
-      ],
-    );
-  }
-}
 
